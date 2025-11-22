@@ -9,7 +9,7 @@ class FileManager {
 public:
     FileManager(std::string fileName, std::string outputFileName);
     template<typename T> void writeFile(T* array, int arraySize); //For file test mode
-    void saveData(SortingType sorting, const std::string& variable, int elements, int time, const std::string& pivot) const;
+    void saveData(SortingType sorting, const std::string& variable, int elements, int time, const std::string& pivot, int threads) const;
 
     static std::string toString(SortingType sorting);
 

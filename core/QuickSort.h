@@ -3,11 +3,12 @@
 #define QUICKSORT_H
 #include "../enums/PivotType.h"
 #include <random>
+#include <atomic>
 
 template <typename T>
 class QuickSort {
 public:
-    QuickSort(T* array, int size, PivotType pivotT);
+    QuickSort(T* array, int size, PivotType pivotT, int maxThreads);
     void sort(); //left/right are indexes
     bool verify();
 private:
@@ -20,6 +21,8 @@ private:
     int size;
     std::random_device rd;
     std::mt19937 gen;
+    std::atomic<int> threadCount;
+    int maxThreads;
 };
 
 #include "QuickSort.tpp"

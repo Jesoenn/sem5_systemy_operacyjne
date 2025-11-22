@@ -2,8 +2,8 @@
 #pragma once
 
 template<typename T>
-QuickSort<T>::QuickSort(T *array, int size, PivotType pivotT):
-    gen(rd()), size(size), pivotType(pivotT){
+QuickSort<T>::QuickSort(T *array, int size, PivotType pivotT, int maxThreads):
+    gen(rd()), size(size), pivotType(pivotT), threadCount(1), maxThreads(maxThreads){
     this->array = array;
 }
 
@@ -13,7 +13,7 @@ void QuickSort<T>::sort() {
 }
 
 template<typename T>
-int QuickSort<T>::partition(const int left, int right, int pivot) {
+int QuickSort<T>::partition(int left, int right, int pivot) {
     int j = left;                                       //index where elements smaller or equal pivot are placed
     std::swap(array[pivot], array[right]);    //move pivot to right
     pivot = right;

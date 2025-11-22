@@ -9,20 +9,21 @@ FileManager::FileManager(std::string fileName, std::string outputFileName)
 
 
 void FileManager::saveData(const SortingType sorting, const std::string& variable, const int elements,
-    const int time, const std::string& pivot) const {
+    const int time, const std::string& pivot, int threads) const {
     std::ofstream file(dataFileName, std::ios::app);
 
     if (!file.is_open()) {
         std::cout << "Cannot open/create data file." << std::endl;
         return;
     }
-    //Rodzaj algorytmu | Poczatkowe sortowanie | Typ zmiennej | Liczba elementow | Średni czas ms
+    //Rodzaj algorytmu | Poczatkowe sortowanie | Typ zmiennej | Liczba elementow | Średni czas ms | watki
     file
     << pivot << "\t"
     << toString(sorting) << "\t"
     << variable << "\t"
     << elements << "\t"
-    << time << std::endl;
+    << time << "\t"
+    << threads << std::endl;
 
     file.close();
 }

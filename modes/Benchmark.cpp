@@ -5,7 +5,7 @@
 #include "Benchmark.h"
 #include "../core/Timer.h"
 
-Benchmark::Benchmark(int dataType, int size, int sorting, std::string outputFile, std::string numbersFile, int pivot):
+Benchmark::Benchmark(int dataType, int size, int sorting, std::string outputFile, std::string numbersFile, int pivot, int threadCount):
 sortingType(SortingType::NONE) {
     this->dataType = dataType;
     this->size = size;
@@ -14,6 +14,7 @@ sortingType(SortingType::NONE) {
     this->numbersFileName = std::move(numbersFile);
     this->pivot = pivot;
     this->chosenSortingType = "NULL";
+    this->threadCount = threadCount;
 }
 
 

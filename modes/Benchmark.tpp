@@ -15,7 +15,7 @@ void Benchmark::performSort() {
     T min, max;
     if (dataType == 3){ // char
         min = 0;
-        max = 127;
+        max = 255;
     } else if constexpr (std::is_integral_v<T>) {
         min = std::numeric_limits<T>::min();
         max = std::numeric_limits<T>::max();
@@ -25,7 +25,7 @@ void Benchmark::performSort() {
     }
     randomizer.fillArray(array,size,min,max,sortingType);   // Fill array
     std::cout<<"\nChosen sorting: "<<chosenSortingType;
-    std::cout<<"\nAlgorithm\tSize\tDataType\tTime [ms]\tPivot\tCorrect?"<<std::endl;
+    std::cout<<"\nAlgorithm\tSize\tDataType\tTime [ms]\tPivot\tCorrect?\tThreads"<<std::endl;
 
     PivotType pivotType;
     switch(pivot){
@@ -35,14 +35,14 @@ void Benchmark::performSort() {
         case 3: pivotType = PivotType::RANDOM; chosenPivot="RANDOM"; break;
         default: throw std::runtime_error("Invalid algorithm type");
     }
-    QuickSort<T> quickSort(array, size, pivotType);
+    QuickSort<T> quickSort(array, size, pivotType, threadCount);
     timer.start();
     quickSort.sort();
     timer.stop();
     std::cout<<"Quick\t\t"<<size<<"\t"<<typeid(T).name()<<"\t"<<timer.result()
-             <<"\t\t"<<chosenPivot<<"\t\t"<<quickSort.verify()<<std::endl;
+             <<"\t\t"<<chosenPivot<<"\t\t"<<quickSort.verify()<<"\t"<<threadCount<<std::endl;
 
-    fileManager.saveData(sortingType,typeid(T).name(),size,timer.result(),chosenPivot);
+    fileManager.saveData(sortingType,typeid(T).name(),size,timer.result(),chosenPivot, threadCount);
     if(numbersFileName != "-"){
         fileManager.writeFile<T>(array, size);
     }

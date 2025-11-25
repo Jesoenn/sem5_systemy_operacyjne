@@ -37,41 +37,47 @@ void QuickSort<T>::quickSort(int left, int right) {
          std::thread thread;
          bool threadCreated = false;
 
-         // Multithreading
-         if( threadCount < maxThreads ){
+         int leftSize  = pivot - left;
+         int rightSize = right - pivot;
+
+         if(threadCount < maxThreads){
              threadCount++;
              threadCreated = true;
-             thread = std::thread(&QuickSort<T>::quickSort, this, pivot+1, right);
+             if(rightSize > leftSize){
+                 thread = std::thread(&QuickSort<T>::quickSort, this, pivot+1, right);
+                 quickSort(left, pivot-1); // Smaller array in main thread
+             } else {
+                 thread = std::thread(&QuickSort<T>::quickSort, this, left, pivot-1);
+                 quickSort(pivot+1, right); // Smaller array in main thread
+             }
          } else {
+             quickSort(left, pivot-1);
              quickSort(pivot+1, right);
          }
-         quickSort(left, pivot-1);
+
+//         // Multithreading
+//         if( threadCount < maxThreads ){
+//             threadCount++;
+//             threadCreated = true;
+//             thread = std::thread(&QuickSort<T>::quickSort, this, pivot+1, right);
+//         } else {
+//             quickSort(pivot+1, right);
+//         }
+//         quickSort(left, pivot-1);
 
          if(threadCreated)
              thread.join();
      }
-
-//    //While loop will work for 2 iterations
-//    while (left < right && left>=0) {
-//        int pivot = pickPivot(left, right);
-//        pivot = partition(left, right, pivot);
-//
-//        // Sort shorter subarray first
-//        if (pivot - left < right - pivot) {
-//            quickSort(left, pivot - 1);
-//            left = pivot + 1;
-//        } else {
-//            quickSort(pivot + 1, right);
-//            right = pivot - 1;
-//        }
-//    }
 }
 
 template <typename T>
 bool QuickSort<T>::verify() {
     for (int i = 1; i < size; i++) {
-        if (array[i] < array[i - 1])
+        if (array[i] < array[i - 1]){
+            std::cout<<"\n\nBLAD SORTOWANIA\n\n";
+            system("PAUSE");
             return false;
+        }
     }
     return true;
 }

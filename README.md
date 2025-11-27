@@ -35,3 +35,9 @@ so_projekt1.exe <dataType> <size> <sorting> <outputFile> <numbersFile> <pivot> <
   - `3` – losowy
 
 - **`<threads>`** – liczba wątków (minimum 1)
+### Przykładowe uruchomienie
+```
+so_projekt1.exe 0 10000 0 wynik.txt - 2 1
+```
+Tablica o 10 000 elementach typu int, rozmieszczonych losowo, z wynikiem zapisanym do pliku `wynik.txt`, środkowego pivota oraz 1 wątku.
+ 

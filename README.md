@@ -1,8 +1,6 @@
 # Quicksort wielowątkowy
 Umożliwia generowanie danych tablic oraz oraz testowanie algorytmu dla różnych konfiguracji.  
 
----
-
 ## Uruchamianie Windows
 Program wymaga podania 7 argumentów.
 ```
